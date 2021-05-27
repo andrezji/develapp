@@ -22,6 +22,9 @@ public class Team {
 
     @Column(name = "city")
     private String city;
+
+    @Column(name = "country")
+    private String country;
 }
 
 

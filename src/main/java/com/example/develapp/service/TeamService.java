@@ -4,11 +4,9 @@ import com.example.develapp.jpa.Team;
 import com.example.develapp.model.TeamDto;
 import com.example.develapp.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamService {
@@ -20,22 +18,23 @@ public class TeamService {
         this.teamRepository = teamRepository;
     }
 
-    public List<TeamDto> getTeams() {
-        List<Team> allTeams = new ArrayList<>();
-        Iterable<Team> all = teamRepository.findAll();
-        all.forEach(allTeams::add);
-
-        return allTeams.stream().map(this::mapper).collect(Collectors.toList());
-    }
-
     private TeamDto mapper(Team team) {
-        if (team == null) {
-            throw  new AssertionError();
-        }
         return TeamDto.builder()
                 .city(team.getCity())
                 .teamName(team.getTeamName())
+                .country(team.getCountry())
                 .id(team.getId())
                 .build();
     }
+
+    public Page<TeamDto> getTeamsPage(Pageable pageable) {
+        return teamRepository.findAll(pageable)
+                .map(this::mapper);
+    }
+
+    public Page<TeamDto> getTeamsPageFilter(String phrase, Pageable pageable) {
+        return teamRepository.findAllByCityContainingIgnoreCaseOrCountryContainingIgnoreCaseOrTeamNameContainingIgnoreCase(phrase, phrase, phrase, pageable)
+                             .map(this::mapper);
+    }
+
 }

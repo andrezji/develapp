@@ -1,12 +1,15 @@
 package com.example.develapp.repository;
 
 import com.example.develapp.jpa.Team;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface TeamRepository extends JpaRepository<Team, Long> {
 
-public interface TeamRepository extends CrudRepository<Team, Long> {
 
-//    List<Team>
-
+    Page<Team> findAllByCityContainingIgnoreCaseOrCountryContainingIgnoreCaseOrTeamNameContainingIgnoreCase(String city,String country, String teamName, Pageable pageable);
 }
