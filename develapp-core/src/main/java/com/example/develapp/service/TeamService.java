@@ -1,5 +1,8 @@
 package com.example.develapp.service;
 
+
+
+
 import com.example.develapp.jpa.Team;
 import com.example.develapp.model.TeamDto;
 import com.example.develapp.repository.TeamRepository;
@@ -11,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeamService {
 
-    private TeamRepository teamRepository;
+    private final TeamRepository teamRepository;
 
     @Autowired
     public TeamService(TeamRepository teamRepository) {

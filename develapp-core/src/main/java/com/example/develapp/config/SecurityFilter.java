@@ -14,11 +14,11 @@ public class SecurityFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        if (request.getRemoteAddr().equals("127.0.0.1")) {
+//        if (request.getRemoteAddr().equals("127.0.0.1")) {
             chain.doFilter(request, response);
-        } else {
-            response.getWriter().write("Tego Pana nie obsługujemy");
-        }
+//        } else {
+//            response.getWriter().write("Tego Pana nie obsługujemy");
+//        }
     }
 
     @Override
