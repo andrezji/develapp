@@ -1,20 +1,22 @@
 package com.example.develapp.jpa;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "team", schema = "main")
 public class Team {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "main.team_id_seq")
     private Long id;
 
     @Column(name = "team_name")
@@ -25,6 +27,9 @@ public class Team {
 
     @Column(name = "country")
     private String country;
+
+    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    private List<Person> persons;
 }
 
 

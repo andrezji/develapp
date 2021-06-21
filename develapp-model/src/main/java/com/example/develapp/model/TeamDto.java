@@ -2,6 +2,8 @@ package com.example.develapp.model;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -13,5 +15,6 @@ public class TeamDto {
     private String teamName;
     private String city;
     private String country;
+    private List<PersonDto> personList;
 
 }
