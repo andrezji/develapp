@@ -1,29 +1,16 @@
 package com.example.develapp.mapper;
 
-import com.example.develapp.jpa.Person;
 import com.example.develapp.jpa.Team;
-import com.example.develapp.model.PersonDto;
 import com.example.develapp.model.TeamDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-import java.util.ArrayList;
-import java.util.List;
+@Mapper(uses = {PersonMapper.class})
+public interface TeamMapper {
 
-public class TeamMapper {
+    TeamMapper INSTANCE = Mappers.getMapper(TeamMapper.class);
 
-    public static TeamDto map(Team team) {
-        return TeamDto.builder()
-                      .city(team.getCity())
-                      .teamName(team.getTeamName())
-                      .country(team.getCountry())
-                      .id(team.getId())
-                      .personList(mapPersonList(team.getPersons()))
-                      .build();
-    }
+    TeamDto toDto(Team team);
 
-    private static List<PersonDto> mapPersonList(List<Person> personList) {
-        ArrayList<PersonDto> personDtoList = new ArrayList<>();
-        personList.forEach(person -> personDtoList.add(PersonMapper.map(person)));
-        return personDtoList;
-    }
 
 }

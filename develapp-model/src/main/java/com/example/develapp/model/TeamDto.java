@@ -15,6 +15,6 @@ public class TeamDto {
     private String teamName;
     private String city;
     private String country;
-    private List<PersonDto> personList;
+    private List<PersonDto> persons;
 
 }

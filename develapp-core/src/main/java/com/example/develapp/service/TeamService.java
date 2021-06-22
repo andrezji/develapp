@@ -38,10 +38,10 @@ public class TeamService {
                       .build();
     }
 
-    public Page<TeamDto> getTeamsPage(Pageable pageable) {
-        return teamRepository.findAll(pageable)
-                             .map(this::mapper);
-    }
+//    public Page<TeamDto> getTeamsPage(Pageable pageable) {
+//        return teamRepository.findAll(pageable)
+//                             .map(this::mapper);
+//    }
 
     public Page<TeamDto> getTeamsPageFilter(TeamFilter teamFilter, Pageable pageable) {
 //        Specification<Team> specificationForFilters = TeamSpecification.getSpecificationForFilters(teamFilter);
@@ -68,7 +68,7 @@ public class TeamService {
         GenericSpecification<Team> teamGenericSpecification = new GenericSpecification<>(map);
 
         return teamRepository.findAll(teamGenericSpecification, pageable)
-                             .map(TeamMapper::map);
+                             .map(TeamMapper.INSTANCE::toDto);
     }
 
     public void create(TeamDto teamDto) {

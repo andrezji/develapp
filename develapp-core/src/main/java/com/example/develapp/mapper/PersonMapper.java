@@ -2,15 +2,19 @@ package com.example.develapp.mapper;
 
 import com.example.develapp.jpa.Person;
 import com.example.develapp.model.PersonDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+import org.mapstruct.factory.Mappers;
 
-public class PersonMapper {
+@Mapper
+public interface PersonMapper {
 
-    public static PersonDto map(Person person) {
-        return PersonDto.builder()
-                        .id(person.getId())
-                        .firstName(person.getFirstName())
-                        .lastName(person.getLastName())
-                        .teamId(person.getTeam().getId())
-                        .build();
-    }
+    PersonMapper INSTANCE = Mappers.getMapper(PersonMapper.class);
+
+    @Mappings({
+            @Mapping(target = "teamId", source = "team.id")
+    })
+    PersonDto toDto(Person person);
+
 }
