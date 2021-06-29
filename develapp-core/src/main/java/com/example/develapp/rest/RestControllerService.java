@@ -1,7 +1,6 @@
 package com.example.develapp.rest;
 
 import com.example.develapp.model.TeamDto;
-import com.example.develapp.request.TeamFilter;
 import com.example.develapp.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,20 +20,9 @@ public class RestControllerService {
     }
 
     @GetMapping("/teamsPage")
-    public Page<TeamDto> getTeamsPage(Pageable pageable, TeamFilter teamFilter) {
-        return teamService.getTeamsPageFilter(teamFilter, pageable);
-    }
-
-
-    @GetMapping("/teamsTest")
     public Page<TeamDto> getTeamsPage(Pageable pageable, @RequestParam Map<String, String> map) {
-//        return Page.empty();
-        return teamService.getTeamsPageFilter(map, pageable);
+        return teamService.getTeamsByFilters(map, pageable);
     }
-//    @GetMapping("/teams")
-//    public Page<TeamDto> getTeams(Pageable pageable) {
-//        return teamService.getReflectTeams(pageable);
-//    }
 
     @PostMapping("/add")
     public void createTeam(@RequestBody TeamDto teamDto) {

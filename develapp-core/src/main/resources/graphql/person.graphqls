@@ -1,7 +1,0 @@
-type Person {
-    id: ID!,
-    firstName: String,
-    lastName: String,
-    team: Team
-}
-
