@@ -20,7 +20,7 @@ public class RestControllerService {
     }
 
     @GetMapping("/teamsPage")
-    public Page<TeamDto> getTeamsPage(Pageable pageable, @RequestParam Map<String, String> map) {
+    public Page<TeamDto> getTeamsPage(Pageable pageable, @RequestParam Map<String, Object> map) {
         return teamService.getTeamsByFilters(map, pageable);
     }
 

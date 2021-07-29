@@ -27,7 +27,7 @@ public class TeamService {
         this.teamQueryService = teamQueryService;
     }
 
-    public Page<TeamDto> getTeamsByFilters(Map<String, String> params, Pageable pageable) {
+    public Page<TeamDto> getTeamsByFilters(Map<String, Object> params, Pageable pageable) {
         return teamQueryService.getPageFilter(params, pageable, Team.class).map(TeamMapper.INSTANCE::toDto);
     }
 

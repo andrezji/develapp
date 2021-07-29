@@ -22,16 +22,16 @@ public class QueryService<T> {
         this.abstractRepository = abstractRepository;
     }
 
-    public Page<T> getPageFilter(Map<String, String> params, Pageable pageable, Class<T> tClass) {
-        Map<String, String> map = new HashMap<>();
+    public Page<T> getPageFilter(Map<String, Object> params, Pageable pageable, Class<T> tClass) {
+        Map<String, Object> map = new HashMap<>();
 
         for (Field field : tClass.getDeclaredFields()) {
             String columnName;
             if (field.isAnnotationPresent(Column.class)) {
                 columnName = field.getName();
-                String string = params.get(columnName);
-                if (string != null) {
-                    map.put(columnName, string);
+                Object object = params.get(columnName);
+                if (object != null) {
+                    map.put(columnName, object);
                 }
             }
         }
