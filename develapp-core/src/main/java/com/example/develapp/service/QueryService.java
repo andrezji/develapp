@@ -1,11 +1,7 @@
 package com.example.develapp.service;
 
-import com.example.develapp.repository.AbstractRepository;
 import com.example.develapp.repository.GenericSpecification;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.Column;
 import java.lang.reflect.Field;
@@ -13,16 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 @NoArgsConstructor
-@Component
 public class QueryService<T> {
 
-    private AbstractRepository<T> abstractRepository;
-
-    public QueryService(AbstractRepository<T> abstractRepository) {
-        this.abstractRepository = abstractRepository;
+    public GenericSpecification<T> getGenericSpecification(Map<String, Object> params, Class<T> tClass) {
+        Map<String, Object> map = getFilterMapForClass(params, tClass);
+        return new GenericSpecification<>(map);
     }
 
-    public Page<T> getPageFilter(Map<String, Object> params, Pageable pageable, Class<T> tClass) {
+    public Map<String, Object> getFilterMapForClass(Map<String, Object> params, Class<T> tClass) {
         Map<String, Object> map = new HashMap<>();
 
         for (Field field : tClass.getDeclaredFields()) {
@@ -35,10 +29,8 @@ public class QueryService<T> {
                 }
             }
         }
-
-        GenericSpecification<T> genericSpecification = new GenericSpecification<>(map);
-
-        return abstractRepository.findAll(genericSpecification, pageable);
+        return map;
     }
+
 
 }

@@ -28,7 +28,7 @@ public class Team {
     @Column(name = "country")
     private String country;
 
-    @OneToMany(mappedBy = "team", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
     private List<Person> persons;
 }
 

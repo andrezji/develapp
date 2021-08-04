@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TeamRepository extends AbstractRepository<Team>, JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
+public interface TeamRepository extends JpaRepository<Team, Long>, JpaSpecificationExecutor<Team> {
 
 
 }
